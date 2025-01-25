@@ -20,7 +20,18 @@ class AdminController extends Controller
         // dd($request->all());
     }
 
-    public function logout()  {
-        dd('logout');
+    public function logout(Request $request)  {
+        // Log out the admin
+        Auth::guard('admin')->logout(); // Use 'web' or your specific guard, if applicable
+
+        // Invalidate the session
+        $request->session()->invalidate();
+
+        // Regenerate the session token
+        $request->session()->regenerateToken();
+
+        // Redirect to the login page or any desired route
+        return redirect()->route('admin.login')->with('success', 'You have successfully logged out.');
+   
     }
 }
