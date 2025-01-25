@@ -19,6 +19,8 @@ Route::get('/admin/login', function () {
 
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login')->middleware('is_admin');
 
+Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin.dashboard')->middleware('is_admin');

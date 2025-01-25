@@ -19,4 +19,8 @@ class AdminController extends Controller
         }
         // dd($request->all());
     }
+
+    public function logout()  {
+        dd('logout');
+    }
 }
