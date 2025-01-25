@@ -22,13 +22,13 @@ Ensure you have the following installed on your local environment:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/kawsar24ahmad/barta-app-with-testing.git
+   git clone https://github.com/kawsar24ahmad/job-board.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd barta-app-with-testing
+   cd Job-Board
    ```
 
 3. Install dependencies:
