@@ -14,6 +14,9 @@ class CompanyController extends Controller
     {
         //
     }
+    public function register()  {
+        return view('company.register');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +41,7 @@ class CompanyController extends Controller
 
         Company::create($request->all());
 
-        return to_route('register');
+        return to_route('company.register');
 
         // dd($request->all());
     }

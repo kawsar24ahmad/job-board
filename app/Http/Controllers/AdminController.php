@@ -48,4 +48,15 @@ class AdminController extends Controller
         return back()->with('success', 'The Company has been approved');
         
     }
+    public function reject($id)  {
+        $company = Company::find($id);
+        if (!$company) {
+            return abort(404);
+        }
+
+        $company->status = 'rejected';
+        $company->save();
+        return back()->with('success', 'The Company has been rejected');
+        
+    }
 }

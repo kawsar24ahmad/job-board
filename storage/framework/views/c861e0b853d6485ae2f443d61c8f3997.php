@@ -43,7 +43,7 @@
                   <th>Website</th>
                   <th>Address</th>
                   <th>Status</th>
-                  <th>Approved By</th>
+                  <th>Approved / Rejected By</th>
                   <th>Action</th>
                 </tr>  
               </thead>
@@ -65,7 +65,7 @@
                       <?php endif; ?>
                     </td>
                     <td class="d-flex align-items-center gap-3">
-                    <form action="<?php echo e(route('admin.accept', $company->id)); ?>" method="post">
+<form action="<?php echo e(route('admin.accept', $company->id)); ?>" method="post">
     <?php echo csrf_field(); ?>
     <?php echo method_field('PUT'); ?>
   
@@ -79,12 +79,19 @@
     </button>
 </form>
 
-                      <a 
-                        href="#" 
+<form action="<?php echo e(route('admin.reject', $company->id)); ?>" method="post">
+  <?php echo csrf_field(); ?>
+  <?php echo method_field('PUT'); ?>
+<button
+                        type="submit" 
+                        <?php echo e($company->status== "rejected" ? "disabled" : ""); ?>
+
                         class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center"
                       >
                         <i class="bi bi-x-lg me-2"></i> 
-                      </a>
+                      </button>
+</form>
+                      
                     </td>
 
 
@@ -100,4 +107,4 @@
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.layouts.admin-layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\laravelcareerpathCourse\assignments\team-project\test\job-board\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin-layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\laravelcareerpathCourse\assignments\team-project\test\job-board\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>

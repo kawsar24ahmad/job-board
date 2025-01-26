@@ -12,7 +12,7 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('register');
 })->name('register');
-Route::post('/register', [CompanyController::class, 'store'])->name('register');
+
 
 
 // Admin Panel Route
@@ -30,3 +30,8 @@ Route::get('/admin/dashboard', function () {
 })->name('admin.dashboard')->middleware('is_admin');
 
 Route::put('/admin/approve/{id}', [AdminController::class, 'approve'])->name('admin.accept')->middleware('is_admin');
+Route::put('/admin/reject/{id}', [AdminController::class, 'reject'])->name('admin.reject')->middleware('is_admin');
+
+// for Company Routes
+Route::get('/company/register', [CompanyController::class, 'register'])->name('company.register');
+Route::post('/company/register', [CompanyController::class, 'store'])->name('company.register');

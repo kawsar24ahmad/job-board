@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin-layout')
+@extends('layouts.admin-layout')
 
 @section('content')
 <div class="content-wrapper">
@@ -43,7 +43,7 @@
                   <th>Website</th>
                   <th>Address</th>
                   <th>Status</th>
-                  <th>Approved By</th>
+                  <th>Approved / Rejected By</th>
                   <th>Action</th>
                 </tr>  
               </thead>
@@ -64,7 +64,7 @@
                       @endif
                     </td>
                     <td class="d-flex align-items-center gap-3">
-                    <form action="{{ route('admin.accept', $company->id) }}" method="post">
+<form action="{{ route('admin.accept', $company->id) }}" method="post">
     @csrf
     @method('PUT')
   
@@ -77,12 +77,18 @@
     </button>
 </form>
 
-                      <a 
-                        href="#" 
+<form action="{{route('admin.reject', $company->id)}}" method="post">
+  @csrf
+  @method('PUT')
+<button
+                        type="submit" 
+                        {{$company->status== "rejected" ? "disabled" : ""}}
                         class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center"
                       >
                         <i class="bi bi-x-lg me-2"></i> 
-                      </a>
+                      </button>
+</form>
+                      
                     </td>
 
 
