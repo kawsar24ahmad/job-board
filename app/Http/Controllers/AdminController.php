@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,5 +34,18 @@ class AdminController extends Controller
         // Redirect to the login page or any desired route
         return redirect()->route('admin.login')->with('success', 'You have successfully logged out.');
    
+    }
+
+    public function approve($id)  {
+        $company = Company::find($id);
+        if (!$company) {
+            return abort(404);
+        }
+
+        $company->status = 'approved';
+        $company->approved_by = auth()->guard('admin')->user()->id;
+        $company->save();
+        return back()->with('success', 'The Company has been approved');
+        
     }
 }

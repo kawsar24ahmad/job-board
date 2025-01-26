@@ -28,3 +28,5 @@ Route::get('/admin/dashboard', function () {
     $companies = Company::all();
     return view('admin.dashboard', compact('companies'));
 })->name('admin.dashboard')->middleware('is_admin');
+
+Route::put('/admin/approve/{id}', [AdminController::class, 'approve'])->name('admin.accept')->middleware('is_admin');

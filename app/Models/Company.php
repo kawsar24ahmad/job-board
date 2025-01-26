@@ -17,4 +17,9 @@ class Company extends Model
         'website_link',
         'address',
     ];
+    public function approvedBy()
+    {
+        return $this->belongsTo(Admin::class, 'approved_by');
+    }
+
 }

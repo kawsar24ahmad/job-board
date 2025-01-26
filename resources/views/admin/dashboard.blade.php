@@ -34,7 +34,7 @@
         <div class="card-body">
           <p class="card-title mb-4 text-center">Company List</p>
           <div class="table-responsive">
-            <table class="table table-striped table-borderless">
+            <table class="table table-striped table-borderless text-center">
               <thead>
                 <tr>
                   <th>Company Name</th>
@@ -44,6 +44,7 @@
                   <th>Address</th>
                   <th>Status</th>
                   <th>Approved By</th>
+                  <th>Action</th>
                 </tr>  
               </thead>
               <tbody>
@@ -55,8 +56,36 @@
                     <td>{{$company->website_link}}</td>
                     <td>{{$company->address}}</td>
                     <td class="font-weight-medium"><div class="badge badge-success">{{$company->status}}</div></td>
-                    <td>{{$company->approved_by}}</td>
-                  </tr>
+                    <td>
+                      @if($company->approvedBy)
+                          {{ $company->approvedBy->name }}
+                      @else
+                          Not approved
+                      @endif
+                    </td>
+                    <td class="d-flex align-items-center gap-3">
+                    <form action="{{ route('admin.accept', $company->id) }}" method="post">
+    @csrf
+    @method('PUT')
+  
+    <button
+        type="submit"
+        {{$company->status== "approved" ? "disabled" : ""}}
+        class="btn btn-success btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center"
+    >
+        <i class="bi bi-check-lg me-2"></i>
+    </button>
+</form>
+
+                      <a 
+                        href="#" 
+                        class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center"
+                      >
+                        <i class="bi bi-x-lg me-2"></i> 
+                      </a>
+                    </td>
+
+
                 @endforeach
                 
                 
