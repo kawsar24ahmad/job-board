@@ -58,6 +58,15 @@
                             <label class="form-label" for="form3Example1n">Email</label>
                             </div>
                         </div>
+                        <div class="col-md-6 mb-4">
+                            <div data-mdb-input-init class="form-outline">
+                            <input type="password" name="password" id="form3Example1n" class="form-control form-control-lg" />
+                            @error('password')
+                                <p class="text-danger">{{ $message}}</p>
+                            @enderror
+                            <label class="form-label" for="form3Example1n">Password</label>
+                            </div>
+                        </div>
                         </div>
 
                         <div class="row">

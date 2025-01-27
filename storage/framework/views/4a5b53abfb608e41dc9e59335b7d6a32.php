@@ -72,6 +72,22 @@ unset($__errorArgs, $__bag); ?>
                             <label class="form-label" for="form3Example1n">Email</label>
                             </div>
                         </div>
+                        <div class="col-md-6 mb-4">
+                            <div data-mdb-input-init class="form-outline">
+                            <input type="password" name="password" id="form3Example1n" class="form-control form-control-lg" />
+                            <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-danger"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            <label class="form-label" for="form3Example1n">Password</label>
+                            </div>
+                        </div>
                         </div>
 
                         <div class="row">

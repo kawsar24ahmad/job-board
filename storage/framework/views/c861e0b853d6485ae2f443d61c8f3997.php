@@ -1,5 +1,17 @@
 
 
+<?php $__env->startSection('auth_name'); ?>
+<?php echo e(auth()->guard('admin')->user()->name); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('logout'); ?>
+<a class="dropdown-item" href="<?php echo e(route('admin.logout')); ?>">
+    <i class="ti-power-off text-primary"></i>
+    Logout
+</a>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 <div class="content-wrapper">
   <div class="row">
@@ -65,7 +77,7 @@
                       <?php endif; ?>
                     </td>
                     <td class="d-flex align-items-center gap-3">
-<form action="<?php echo e(route('admin.accept', $company->id)); ?>" method="post">
+<form action="<?php echo e(route('admin.approve', $company->id)); ?>" method="post">
     <?php echo csrf_field(); ?>
     <?php echo method_field('PUT'); ?>
   

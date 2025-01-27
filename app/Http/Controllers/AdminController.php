@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+
     public function login(Request $request)  {
         $request->validate([
             'email'=> 'required|email',
@@ -23,7 +24,7 @@ class AdminController extends Controller
 
     public function logout(Request $request)  {
         // Log out the admin
-        Auth::guard('admin')->logout(); // Use 'web' or your specific guard, if applicable
+        Auth::guard('admin')->logout();
 
         // Invalidate the session
         $request->session()->invalidate();
@@ -35,6 +36,12 @@ class AdminController extends Controller
         return redirect()->route('admin.login')->with('success', 'You have successfully logged out.');
    
     }
+    public function dashboard()
+    {
+        $companies = Company::all();
+        return view('admin.dashboard', compact('companies'));
+    }
+
 
     public function approve($id)  {
         $company = Company::find($id);

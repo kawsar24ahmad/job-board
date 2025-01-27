@@ -1,5 +1,16 @@
 @extends('layouts.admin-layout')
 
+@section('auth_name')
+{{auth()->guard('admin')->user()->name}}
+@endsection
+
+@section('logout')
+<a class="dropdown-item" href="{{route('admin.logout')}}">
+    <i class="ti-power-off text-primary"></i>
+    Logout
+</a>
+@endsection
+
 @section('content')
 <div class="content-wrapper">
   <div class="row">
@@ -64,7 +75,7 @@
                       @endif
                     </td>
                     <td class="d-flex align-items-center gap-3">
-<form action="{{ route('admin.accept', $company->id) }}" method="post">
+<form action="{{ route('admin.approve', $company->id) }}" method="post">
     @csrf
     @method('PUT')
   

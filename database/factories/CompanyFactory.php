@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class CompanyFactory extends Factory
         return [
             'name'=>fake()->name(),
             'email'=>fake()->email,
+            'password'=> Hash::make("123456"),
             'contact_number'=>fake()->phoneNumber,
             'website_link'=>fake()->url,
             'address'=>fake()->address,

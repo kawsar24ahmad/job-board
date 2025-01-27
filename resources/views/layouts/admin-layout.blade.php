@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{{asset('admin/vendors/ti-icons/css/themify-icons.css')}}">
   <link rel="stylesheet" href="{{asset('admin/vendors/css/vendor.bundle.base.css')}}">
   <link
-  href="{{asset('admin/https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css')}}"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
   rel="stylesheet"
 />
 

@@ -15,23 +15,40 @@ Route::get('/register', function () {
 
 
 
-// Admin Panel Route
-Route::get('/admin/login', function () {
-    return view('admin.login');
-})->name('admin.login')->middleware('is_admin');
+// Admin Panel Routes
+Route::prefix('admin')->group(function () {
+    // Guest Routes for Admin
+    Route::middleware('is_admin')->group(function () {
+        Route::get('/login', function () {
+            return view('admin.login');
+        })->name('admin.login');
+        Route::post('/login', [AdminController::class, 'login'])->name('admin.login');
+    });
 
-Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login')->middleware('is_admin');
+    // Authenticated Routes for Admin
+    Route::middleware('is_admin')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+        Route::put('/approve/{id}', [AdminController::class, 'approve'])->name('admin.approve');
+        Route::put('/reject/{id}', [AdminController::class, 'reject'])->name('admin.reject');
+    });
+});
 
-Route::get('/admin/dashboard', function () {
-    $companies = Company::all();
-    return view('admin.dashboard', compact('companies'));
-})->name('admin.dashboard')->middleware('is_admin');
+// Unauthenticated Company Routes
+Route::middleware('is_company')->group(function () {
+    Route::get('/company/register', [CompanyController::class, 'register'])->name('company.register');
+    Route::post('/company/register', [CompanyController::class, 'store'])->name('company.register');
 
-Route::put('/admin/approve/{id}', [AdminController::class, 'approve'])->name('admin.accept')->middleware('is_admin');
-Route::put('/admin/reject/{id}', [AdminController::class, 'reject'])->name('admin.reject')->middleware('is_admin');
+    Route::get('/company/login', [CompanyController::class, 'login'])->name('company.login');
+    Route::post('/company/login', [CompanyController::class, 'loginForm'])->name('company.login');
+});
 
-// for Company Routes
-Route::get('/company/register', [CompanyController::class, 'register'])->name('company.register');
-Route::post('/company/register', [CompanyController::class, 'store'])->name('company.register');
+// Authenticated Company Routes
+Route::middleware('is_company')->group(function () {
+    Route::get('/company/dashboard', function () {
+        return view('company.dashboard');
+    })->name('company.dashboard');
+
+    Route::get('/company/logout', [CompanyController::class, 'logout'])->name('company.logout');
+});

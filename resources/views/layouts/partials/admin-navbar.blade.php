@@ -72,17 +72,15 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <!-- <img src="images/faces/face28.jpg" alt="profile"/> -->
-               {{auth()->guard('admin')->name}}
+               <!-- {{auth()->guard('admin')->name}} -->
+                @yield('auth_name')
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item" href="{{route('admin.logout')}}">
-                <i class="ti-power-off text-primary"></i>
-                Logout
-              </a>
+              @yield('logout')
             </div>
           </li>
           <li class="nav-item nav-settings d-none d-lg-flex">
