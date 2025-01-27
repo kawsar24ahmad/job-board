@@ -72,17 +72,15 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <!-- <img src="images/faces/face28.jpg" alt="profile"/> -->
-               <?php echo e(auth()->guard('admin')->name); ?>
-
-                <!-- <?php echo $__env->yieldContent('auth_name'); ?> -->
+              {{auth()->guard('company')->user()->name}}
+                <!-- @yield('auth_name') -->
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <!-- <?php echo $__env->yieldContent('logout'); ?> -->
-              <a class="dropdown-item" href="<?php echo e(route('admin.logout')); ?>">
+              <a class="dropdown-item" href="{{route('company.logout')}}">
                   <i class="ti-power-off text-primary"></i>
                   Logout
               </a>
@@ -99,4 +97,3 @@
         </button>
       </div>
     </nav>
-<?php /**PATH F:\laravelcareerpathCourse\assignments\team-project\test\job-board\resources\views/layouts/partials/admin-navbar.blade.php ENDPATH**/ ?>

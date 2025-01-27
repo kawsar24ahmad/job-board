@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobPostController;
 use App\Models\Company;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
@@ -51,4 +52,9 @@ Route::middleware('is_company')->group(function () {
     })->name('company.dashboard');
 
     Route::get('/company/logout', [CompanyController::class, 'logout'])->name('company.logout');
+
+    // Route::get('/job-posts/create', [JobPostController::class, 'create'])->name('job_posts.create');
+    Route::resource('/company/job-posts', JobPostController::class);
 });
+
+

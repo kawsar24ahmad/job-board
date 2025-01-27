@@ -1,16 +1,5 @@
 @extends('layouts.admin-layout')
 
-@section('auth_name')
-{{auth()->guard('admin')->user()->name}}
-@endsection
-
-@section('logout')
-<a class="dropdown-item" href="{{route('admin.logout')}}">
-    <i class="ti-power-off text-primary"></i>
-    Logout
-</a>
-@endsection
-
 @section('content')
 <div class="content-wrapper">
   <div class="row">
@@ -112,5 +101,6 @@
         </div>
       </div>
     </div>
+  </div>
 </div>
 @endsection

@@ -8,32 +8,47 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    
     public function register()  {
         return view('company.register');
     }
     public function login()  {
         return view('company.login');
     }
-    public function loginForm(Request $request)  {
+    public function loginForm(Request $request)
+    {
+        // Validate the request data
         $request->validate([
-            'email'=> 'required|email',
-            'password'=> 'required',
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        $credentials = $request->only(['email', 'password']);
-        if (Auth::guard('company')->attempt($credentials)) {
-            return redirect(route('company.dashboard'));
+        // Attempt to retrieve the company by email
+        $company = Company::where('email', $request->email)->first();
+
+        if (!$company) {
+            // Return with error if the company is not found
+            return back()->with('error', 'This email is not registered.');
         }
 
-        dd($request->all());
+        // Check if the company's status is approved
+        if ($company->status !== 'approved') {
+            return back()->with('error', 'This account is not approved.');
+        }
+
+        // Prepare credentials for authentication
+        $credentials = $request->only(['email', 'password']);
+
+        // Attempt to authenticate the company
+        if (Auth::guard('company')->attempt($credentials)) {
+            // Redirect to the company dashboard on successful login
+            return redirect()->route('company.dashboard');
+        }
+
+        // Return with error if authentication fails
+        return back()->with('error', 'Email or password does not match!');
     }
+    
     public function logout(Request $request)  {
         // Log out the admin
         Auth::guard('company')->logout(); // Use 'web' or your specific guard, if applicable
@@ -49,17 +64,7 @@ class CompanyController extends Controller
    
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -78,35 +83,6 @@ class CompanyController extends Controller
         // dd($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    
+    
 }
