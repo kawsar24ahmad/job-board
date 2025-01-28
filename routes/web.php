@@ -4,15 +4,23 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobPostController;
 use App\Models\Company;
+use App\Models\JobPost;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 Route::get('/register', function () {
     return view('register');
 })->name('register');
+
+Route::get('/job-listing', function () {
+    $jobPosts = JobPost::all();
+    return view('job-listing', compact('jobPosts'));
+})->name('job-listing');
+
+Route::get('/job-details/{id}', [JobPostController::class, 'show'])->name('job-details.show');
 
 
 
@@ -55,6 +63,9 @@ Route::middleware('is_company')->group(function () {
 
     // Route::get('/job-posts/create', [JobPostController::class, 'create'])->name('job_posts.create');
     Route::resource('/company/job-posts', JobPostController::class);
+
+    Route::put('/company/job-posts/{id}/activate', [JobPostController::class, 'activatePost'])->name('job-posts.activate');
+    Route::put('/company/job-posts/{id}/deactivate', [JobPostController::class, 'deactivatePost'])->name('job-posts.deactivate');
 });
 
 

@@ -38,6 +38,7 @@ class Company extends Authenticatable
         'contact_number',
         'website_link',
         'address',
+        'description'
     ];
     public function approvedBy()
     {

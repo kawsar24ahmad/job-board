@@ -1,6 +1,18 @@
 @extends('layouts.company-layout')
 
 @section('content')
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <div class="content-wrapper">
   <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -15,6 +27,7 @@
                   <th>Description</th>
                   <th>Tags</th>
                   <th>Location</th>
+                  <th>Type</th>
                   <th>Salary</th>
                   <th>Application Link</th>
                   <th>Expire Date</th>
@@ -34,6 +47,7 @@
                         @endforeach
                     </td>
                     <td>{{ $jobPost->location }}</td>
+                    <td>{{ $jobPost->job_type }}</td>
                     <td>{{ $jobPost->salary_range }}</td>
                     <td class="font-weight-medium">
                       <a href="{{ $jobPost->application_link }}" target="_blank" class="badge badge-success">Apply</a>
@@ -42,11 +56,15 @@
                     <td>{{ $jobPost->views }}</td>
                     <td>{{ $jobPost->status }}</td>
                     <td class="d-flex align-items-center gap-3">
-                      <a href="{{ route('job-posts.edit', $jobPost->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                      <form action="{{ route('job-posts.destroy', $jobPost->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this job post?')">
+                    <form action="{{ route('job-posts.activate', $jobPost->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to activate this job post?')">
                         @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        @method('PUT')
+                        <button type="submit" class="btn btn-danger btn-sm">Activate</button>
+                      </form>
+                      <form action="{{ route('job-posts.deactivate', $jobPost->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to deactivate this job post?')">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-danger btn-sm">Deactivate</button>
                       </form>
                     </td>
                   </tr>

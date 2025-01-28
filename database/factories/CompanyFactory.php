@@ -22,6 +22,7 @@ class CompanyFactory extends Factory
             'name'=>fake()->name(),
             'email'=>fake()->email,
             'password'=> Hash::make("123456"),
+            'description' => fake()->text(),
             'contact_number'=>fake()->phoneNumber,
             'website_link'=>fake()->url,
             'address'=>fake()->address,

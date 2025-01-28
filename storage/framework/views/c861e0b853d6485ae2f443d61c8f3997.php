@@ -41,6 +41,7 @@
                   <th>Email</th>
                   <th>Contract Number</th>
                   <th>Website</th>
+                  <th>Description</th>
                   <th>Address</th>
                   <th>Status</th>
                   <th>Approved / Rejected By</th>
@@ -54,6 +55,7 @@
                     <td class="font-weight-bold"><?php echo e($company->email); ?></td>
                     <td><?php echo e($company->contact_number); ?></td>
                     <td><?php echo e($company->website_link); ?></td>
+                    <td><?php echo e(substr($company->description, 0, 5)); ?></td>
                     <td><?php echo e($company->address); ?></td>
                     <td class="font-weight-medium"><div class="badge badge-success"><?php echo e($company->status); ?></div></td>
                     <td>

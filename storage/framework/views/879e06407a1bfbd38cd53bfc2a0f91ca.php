@@ -7,7 +7,7 @@
                         <div class="col-lg-3 col-md-2">
                             <!-- Logo -->
                             <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                <a href="<?php echo e(route('home')); ?>"><img src="assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-9">
@@ -16,8 +16,8 @@
                                 <div class="main-menu">
                                     <nav class="d-none d-lg-block">
                                         <ul id="navigation">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="job_listing.html">Find a Jobs </a></li>
+                                            <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                                            <li><a href="<?php echo e(route('job-listing')); ?>">Find a Jobs </a></li>
                                             <li><a href="about.html">About</a></li>
                                             <li><a href="#">Page</a>
                                                 <ul class="submenu">

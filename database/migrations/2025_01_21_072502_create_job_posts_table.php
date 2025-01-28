@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('tags');
             $table->string('location');
             $table->string('salary_range');
+            $table->enum('job_type', ['Full Time', 'Remote', 'Contract', 'Freelance']);
             $table->string('application_link');
             $table->date('expire_date');
             $table->integer('views')->default(0);

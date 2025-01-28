@@ -71,6 +71,7 @@ class CompanyController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:companies,email',
             'password' => 'required',
+            'description' => 'required',
             'contact_number' => 'required|min:11',
             'website_link' => 'required',
             'address' => 'required',

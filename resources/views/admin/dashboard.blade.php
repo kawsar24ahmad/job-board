@@ -41,6 +41,7 @@
                   <th>Email</th>
                   <th>Contract Number</th>
                   <th>Website</th>
+                  <th>Description</th>
                   <th>Address</th>
                   <th>Status</th>
                   <th>Approved / Rejected By</th>
@@ -54,6 +55,7 @@
                     <td class="font-weight-bold">{{$company->email}}</td>
                     <td>{{$company->contact_number}}</td>
                     <td>{{$company->website_link}}</td>
+                    <td>{{ substr($company->description, 0, 5) }}</td>
                     <td>{{$company->address}}</td>
                     <td class="font-weight-medium"><div class="badge badge-success">{{$company->status}}</div></td>
                     <td>

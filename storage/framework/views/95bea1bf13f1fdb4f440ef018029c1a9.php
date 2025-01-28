@@ -1,6 +1,20 @@
 
 
 <?php $__env->startSection('content'); ?>
+
+<?php if(session('error')): ?>
+    <div class="alert alert-danger">
+        <?php echo e(session('error')); ?>
+
+    </div>
+<?php endif; ?>
+<?php if(session('success')): ?>
+    <div class="alert alert-success">
+        <?php echo e(session('success')); ?>
+
+    </div>
+<?php endif; ?>
+
 <div class="content-wrapper">
   <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -15,6 +29,7 @@
                   <th>Description</th>
                   <th>Tags</th>
                   <th>Location</th>
+                  <th>Type</th>
                   <th>Salary</th>
                   <th>Application Link</th>
                   <th>Expire Date</th>
@@ -34,6 +49,7 @@
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </td>
                     <td><?php echo e($jobPost->location); ?></td>
+                    <td><?php echo e($jobPost->job_type); ?></td>
                     <td><?php echo e($jobPost->salary_range); ?></td>
                     <td class="font-weight-medium">
                       <a href="<?php echo e($jobPost->application_link); ?>" target="_blank" class="badge badge-success">Apply</a>
@@ -42,11 +58,15 @@
                     <td><?php echo e($jobPost->views); ?></td>
                     <td><?php echo e($jobPost->status); ?></td>
                     <td class="d-flex align-items-center gap-3">
-                      <a href="<?php echo e(route('job-posts.edit', $jobPost->id)); ?>" class="btn btn-primary btn-sm">Edit</a>
-                      <form action="<?php echo e(route('job-posts.destroy', $jobPost->id)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this job post?')">
+                    <form action="<?php echo e(route('job-posts.activate', $jobPost->id)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to activate this job post?')">
                         <?php echo csrf_field(); ?>
-                        <?php echo method_field('DELETE'); ?>
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <?php echo method_field('PUT'); ?>
+                        <button type="submit" class="btn btn-danger btn-sm">Activate</button>
+                      </form>
+                      <form action="<?php echo e(route('job-posts.deactivate', $jobPost->id)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to deactivate this job post?')">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
+                        <button type="submit" class="btn btn-danger btn-sm">Deactivate</button>
                       </form>
                     </td>
                   </tr>

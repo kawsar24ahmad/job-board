@@ -23,9 +23,10 @@ class JobPostFactory extends Factory
             'description'=>fake()->sentence(),
             'tags' => json_encode(fake()->words(5)),
             'location'=>fake()->city(),
+            'job_type'=> 'Full Time',
             'salary_range'=>fake()->numberBetween(10000, 100000),
             'application_link'=>fake()->url(),
-            'expire_date'=>fake()->dateTimeThisYear(),
+            'expire_date' => fake()->dateTimeBetween('-6 months', '+6 months'),
         ];
     }
 }

@@ -23,11 +23,13 @@
 
         <div class="form-group">
             <label for="tags">Tags</label>
-            <input type="text" name="tags" class="form-control @error('tags') is-invalid @enderror" id="tags" value="{{ old('tags') }}" required>
+            <input type="text" name="tags" class="form-control @error('tags') is-invalid @enderror" id="tags" value="{{ old('tags') }}" placeholder="e.g., PHP, Laravel, Remote" required>
+            <small class="form-text text-muted">Separate tags with commas.</small>
             @error('tags')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
 
         <div class="form-group">
             <label for="salary_range">Salary Range</label>
@@ -44,6 +46,22 @@
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+        <div class="form-group">
+            <label for="job_type">Job Type</label>
+            <select name="job_type" class="form-control @error('job_type') is-invalid @enderror" id="job_type" required>
+                <option value="">Select Job Type</option>
+                <option value="Full Time" {{ old('job_type') == 'Full Time' ? 'selected' : '' }}>Full Time</option>
+                <option value="Remote" {{ old('job_type') == 'Remote' ? 'selected' : '' }}>Remote</option>
+                <option value="Contract" {{ old('job_type') == 'Contract' ? 'selected' : '' }}>Contract</option>
+                <option value="Freelance" {{ old('job_type') == 'Freelance' ? 'selected' : '' }}>Freelance</option>
+            </select>
+            @error('job_type')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+
 
         <div class="form-group">
             <label for="application_link">Application Link</label>
