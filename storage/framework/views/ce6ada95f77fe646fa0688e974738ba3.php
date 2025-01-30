@@ -16,6 +16,16 @@ if (isset($__sessionPrevious) && !empty($__sessionPrevious)) { $value = array_po
 if (isset($__sessionPrevious) && empty($__sessionPrevious)) { unset($__sessionPrevious); }
 endif;
 unset($__sessionArgs); ?>
+<?php $__sessionArgs = ['error'];
+if (session()->has($__sessionArgs[0])) :
+if (isset($value)) { $__sessionPrevious[] = $value; }
+$value = session()->get($__sessionArgs[0]); ?>
+                  <p class="alert-success"><?php echo e(session('error')); ?></p>
+                 <?php unset($value);
+if (isset($__sessionPrevious) && !empty($__sessionPrevious)) { $value = array_pop($__sessionPrevious); }
+if (isset($__sessionPrevious) && empty($__sessionPrevious)) { unset($__sessionPrevious); }
+endif;
+unset($__sessionArgs); ?>
 <!-- Slider Area Start -->
 <div class="slider-area">
     <div class="slider-active">

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\JobPost;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Notifications\NewJobPostNotification;
 
 class JobPostController extends Controller
 {
@@ -69,6 +70,19 @@ class JobPostController extends Controller
             'expire_date' => $request->expire_date,
             'status' => 'active',
         ]);
+
+        $categoryId = $request->category;
+        $category = Category::find($categoryId);
+        
+        if (!$category) {
+            return back()->with('error', 'Category not found');
+        }
+
+        if ($category->users->isNotEmpty()) {
+            foreach ($category->users as $user) {
+                $user->notify(new NewJobPostNotification($jobPost));
+            }
+        }
 
         return to_route('job-posts.index');
     }

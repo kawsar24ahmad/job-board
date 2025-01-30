@@ -9,6 +9,9 @@ Home page
 @session('success')
                   <p class="alert-success">{{ session('success')}}</p>
                  @endsession
+@session('error')
+                  <p class="alert-success">{{ session('error')}}</p>
+                 @endsession
 <!-- Slider Area Start -->
 <div class="slider-area">
     <div class="slider-active">

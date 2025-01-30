@@ -46,6 +46,8 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             return  redirect(route('home'));
         }
+
+        return back()->with('error', 'Your email or password is not valid!');
         
     }
     public function logout()  {
