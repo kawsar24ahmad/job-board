@@ -26,6 +26,7 @@
                   <th>Title</th>
                   <th>Description</th>
                   <th>Tags</th>
+                  <th>Category</th>
                   <th>Location</th>
                   <th>Type</th>
                   <th>Salary</th>
@@ -46,6 +47,7 @@
                             <span class="badge badge-info">{{ $tag }}</span>
                         @endforeach
                     </td>
+                    <td>{{ $jobPost->category->name }}</td>
                     <td>{{ $jobPost->location }}</td>
                     <td>{{ $jobPost->job_type }}</td>
                     <td>{{ $jobPost->salary_range }}</td>
@@ -59,7 +61,7 @@
                     <form action="{{ route('job-posts.activate', $jobPost->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to activate this job post?')">
                         @csrf
                         @method('PUT')
-                        <button type="submit" class="btn btn-danger btn-sm">Activate</button>
+                        <button type="submit" class="btn btn-success btn-sm">Activate</button>
                       </form>
                       <form action="{{ route('job-posts.deactivate', $jobPost->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to deactivate this job post?')">
                         @csrf

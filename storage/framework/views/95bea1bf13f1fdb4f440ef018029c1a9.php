@@ -28,6 +28,7 @@
                   <th>Title</th>
                   <th>Description</th>
                   <th>Tags</th>
+                  <th>Category</th>
                   <th>Location</th>
                   <th>Type</th>
                   <th>Salary</th>
@@ -48,6 +49,7 @@
                             <span class="badge badge-info"><?php echo e($tag); ?></span>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </td>
+                    <td><?php echo e($jobPost->category->name); ?></td>
                     <td><?php echo e($jobPost->location); ?></td>
                     <td><?php echo e($jobPost->job_type); ?></td>
                     <td><?php echo e($jobPost->salary_range); ?></td>
@@ -61,7 +63,7 @@
                     <form action="<?php echo e(route('job-posts.activate', $jobPost->id)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to activate this job post?')">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('PUT'); ?>
-                        <button type="submit" class="btn btn-danger btn-sm">Activate</button>
+                        <button type="submit" class="btn btn-success btn-sm">Activate</button>
                       </form>
                       <form action="<?php echo e(route('job-posts.deactivate', $jobPost->id)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to deactivate this job post?')">
                         <?php echo csrf_field(); ?>

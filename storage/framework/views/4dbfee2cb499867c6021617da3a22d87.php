@@ -13,7 +13,7 @@ Job details Page
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="hero-cap text-center">
-                            <h2>UI/UX Designer</h2>
+                            <h2><?php echo e($jobPost->category->name); ?></h2>
                         </div>
                     </div>
                 </div>
@@ -70,6 +70,7 @@ Job details Page
                           <ul>
                               <li>Posted date : <span><?php echo e($jobPost->created_at->format('d-M-Y')); ?></span></li>
                               <li>Location : <span><?php echo e($jobPost->location); ?></span></li>
+                              <li>Category : <span><?php echo e($jobPost->category->name); ?></span></li>
                               <li>Vacancy : <span>02</span></li>
                               <li>Job nature : <span><?php echo e($jobPost->job_type); ?></span></li>
                               <li>Salary :  <span>$<?php echo e($jobPost->salary_range); ?></span></li>

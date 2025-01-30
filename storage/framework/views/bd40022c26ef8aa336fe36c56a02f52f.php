@@ -23,6 +23,7 @@
             <link rel="stylesheet" href="<?php echo e(asset('assets/css/slick.css')); ?>">
             <link rel="stylesheet" href="<?php echo e(asset('assets/css/nice-select.css')); ?>">
             <link rel="stylesheet" href="<?php echo e(asset('assets/css/style.css')); ?>">
+            
    </head>
 
    <body>

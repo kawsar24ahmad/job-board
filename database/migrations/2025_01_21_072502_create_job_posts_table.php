@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->json('tags');
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete(); 
             $table->string('location');
-            $table->string('salary_range');
+            $table->integer('salary_range');
             $table->enum('job_type', ['Full Time', 'Remote', 'Contract', 'Freelance']);
             $table->string('application_link');
             $table->date('expire_date');

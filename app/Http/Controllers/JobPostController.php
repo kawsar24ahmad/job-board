@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -14,7 +15,7 @@ class JobPostController extends Controller
     public function index()
     {
         $companyId = auth()->guard('company')->id();
-        $jobPosts=JobPost::where('company_id', $companyId )->get();
+        $jobPosts=JobPost::where('company_id', $companyId )->paginate(2);
         // dd($jobPosts);
 
         return view('company.job-posts.index', compact('jobPosts'));
@@ -25,7 +26,8 @@ class JobPostController extends Controller
      */
     public function create()
     {
-        return view('company.job-posts.create');
+        $categories = Category::all();
+        return view('company.job-posts.create', compact('categories'));
     }
 
     /**
@@ -45,6 +47,7 @@ class JobPostController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'tags' => 'required',
+            'category' =>  'required',
             'salary_range' => 'required|string',
             'location' => 'required|string|max:255',
             'job_type' => ['required', Rule::in(['Full Time', 'Remote', 'Contract', 'Freelance'])],
@@ -52,13 +55,13 @@ class JobPostController extends Controller
             'expire_date' => 'required|date',
         ]);
 
-        
 
         $jobPost = JobPost::create([
             'title' => $request->title,
             'company_id' => $companyId,
             'description' => $request->description,
             'tags' => json_encode(explode(',', $request->tags)),
+            'category_id' => $request->category,
             'salary_range' => $request->salary_range,
             'location' => $request->location,
             'job_type' => $request->job_type,
@@ -134,6 +137,45 @@ class JobPostController extends Controller
         return to_route('job-posts.index')->with('success', 'your post is deactivated');
 
     }
+    public function search(Request $request)
+    {
+        // Start query with active job posts
+        $query = JobPost::where('status', 'active');
+
+        if ($request->filled('search')) {
+            $searchTerm = '%' . trim($request->search) . '%';
+
+            $query->where(function ($q) use ($searchTerm, $request) {
+                $q->where('title', 'LIKE', $searchTerm)
+                    ->orWhere('location', 'LIKE', $searchTerm)
+                    ->orWhere('tags', 'LIKE', $searchTerm)
+                    ->orWhere('job_type', 'LIKE', $searchTerm);
+
+                // Search within related category name
+                $q->orWhereHas('category', function ($q) use ($searchTerm) {
+                    $q->where('name', 'LIKE', $searchTerm);
+                });
+
+                // Search by salary range only if it's numeric
+                if (is_numeric($request->search)) {
+                    $q->orWhere('salary_range', '<=', (int)$request->search);
+                }
+            });
+        }
+
+        // Paginate results
+        $jobPosts = $query->latest()->paginate(4);
+
+        return view('home', [
+            'results' => $jobPosts,
+            'jobPosts' => $jobPosts,
+        ]);
+    }
+
+
+    
+    
+
 
 
 }

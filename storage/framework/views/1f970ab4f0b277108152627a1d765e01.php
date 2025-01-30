@@ -195,7 +195,7 @@ Job Listing Page
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="count-job mb-35">
-                                        <span>39, 782 Jobs found</span>
+                                        <span><?php echo e($jobPosts->count()); ?> Jobs found</span>
                                         <!-- Select job items start -->
                                         <div class="select-job-items">
                                             <span>Sort by</span>
@@ -252,14 +252,15 @@ Job Listing Page
             <div class="row">
                 <div class="col-xl-12">
                     <div class="single-wrap d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
+                        <!-- <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-start">
                                 <li class="page-item active"><a class="page-link" href="#">01</a></li>
                                 <li class="page-item"><a class="page-link" href="#">02</a></li>
                                 <li class="page-item"><a class="page-link" href="#">03</a></li>
                             <li class="page-item"><a class="page-link" href="#"><span class="ti-angle-right"></span></a></li>
                             </ul>
-                        </nav>
+                        </nav> -->
+                         <?php echo e($jobPosts->links('pagination::bootstrap-4')); ?> 
                     </div>
                 </div>
             </div>

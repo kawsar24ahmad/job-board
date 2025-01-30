@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,6 +23,7 @@ class JobPostFactory extends Factory
             'title'=>fake()->jobTitle(),
             'description'=>fake()->sentence(),
             'tags' => json_encode(fake()->words(5)),
+            'category_id' => Category::inRandomOrder()->first()->id ?? Category::factory(),
             'location'=>fake()->city(),
             'job_type'=> 'Full Time',
             'salary_range'=>fake()->numberBetween(10000, 100000),

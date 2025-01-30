@@ -21,7 +21,8 @@ class JobPost extends Model
         'job_type', 
         'application_link',
         'expire_date',
-        'status'
+        'status',
+        'category_id'
     ];
 
     protected $casts = [
@@ -30,5 +31,8 @@ class JobPost extends Model
 
     public function company()  {
         return $this->BelongsTo(Company::class);
+    }
+    public function category()  {
+        return $this->BelongsTo(Category::class);
     }
 }

@@ -33,7 +33,7 @@
 </head>
 <body class="bg-light d-flex align-items-center justify-content-center vh-100">
   <div class="form-container">
-    <h3 class="mb-4 text-center text-uppercase">Company Registration Form</h3>
+    <h3 class="mb-4 text-center text-uppercase">Registration Form</h3>
     <form action="{{ route('company.register') }}" method="post">
       @csrf
       <div class="mb-3">
