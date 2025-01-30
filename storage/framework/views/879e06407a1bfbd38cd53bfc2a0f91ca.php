@@ -32,10 +32,36 @@
                                     </nav>
                                 </div>
                                 <!-- Header-btn -->
-                                <div class="header-btn d-none f-right d-lg-block">
-                                    <a href="<?php echo e(route('register')); ?>" class="btn head-btn1">Register</a>
-                                    <a href="#" class="btn head-btn2">Login</a>
-                                </div>
+                                <?php if(auth()->guard()->guest()): ?>
+    <div class="header-btn d-none d-lg-block f-right">
+        <a href="<?php echo e(route('register')); ?>" class="btn btn-primary head-btn1">Register</a>
+        <a href="<?php echo e(route('login')); ?>" class="btn btn-outline-primary head-btn2">Login</a>
+    </div>
+<?php endif; ?>
+
+<?php if(auth()->guard()->check()): ?>
+<?php if(auth()->user()->role == 'user'): ?>
+
+<?php endif; ?>
+    <div class="header-btn d-none d-lg-block f-right">
+        <div class="dropdown d-inline">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <?php echo e(auth()->user()->name); ?>
+
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                    <form action="<?php echo e(route('user.logout')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
+                        <button type="submit" class="dropdown-item text-danger">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>
+
                             </div>
                         </div>
                         <!-- Mobile Menu -->

@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
         Category::create([
             'name' => $request->name,
-            'user_id' => auth()->guard('admin')->user()->id,
+            'admin_id' => auth()->guard('admin')->user()->id,
         ]);
         
         return redirect()->route('category.index')->with('success', 'Category created successfully.');

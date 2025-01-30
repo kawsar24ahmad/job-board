@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobPostController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\Company;
@@ -23,6 +24,9 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('register');
 })->name('register');
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
 
 Route::get('/job-listing', function () {
     $jobPosts = JobPost::where('status', 'active')->paginate(2);
@@ -46,7 +50,12 @@ Route::get('/job-listing/search', [JobPostController::class, 'search'])->name('j
 
 Route::get('/user/register', [UserController::class, 'create'])->name('user.register');
 Route::post('/user/register', [UserController::class, 'register'])->name('user.register');
+// for user login 
+Route::get('/user/login', [UserController::class, 'login'])->name('user.login');
+Route::post('/user/login', [UserController::class, 'loginForm'])->name('user.login');
+Route::post('/user/logout', [UserController::class, 'logout'])->name('user.logout');
 
+Route::post('/category/{id}/subscribe', [SubscriptionController::class, 'subscribe'])->name('category.subscribe');
 
 
 // Admin Panel Routes

@@ -45,4 +45,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function categories()  {
+        return $this->belongsToMany(Category::class, 'subscriptions')->withTimestamps();
+    }
+    public function subscribeToCategory($categoryId)  {
+        return $this->categories()->attach($categoryId);
+    }
+    public function unsubscribeToCategory($categoryId)  {
+        return $this->categories()->detach($categoryId);
+    }
+
+    public function isSubscribeToCategory($categoryId) {
+        return $this->categories()->where('category_id', $categoryId)->exists();
+    }
 }

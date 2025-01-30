@@ -6,6 +6,16 @@ Home page
 
 <?php $__env->startSection('content'); ?>
 
+<?php $__sessionArgs = ['success'];
+if (session()->has($__sessionArgs[0])) :
+if (isset($value)) { $__sessionPrevious[] = $value; }
+$value = session()->get($__sessionArgs[0]); ?>
+                  <p class="alert-success"><?php echo e(session('success')); ?></p>
+                 <?php unset($value);
+if (isset($__sessionPrevious) && !empty($__sessionPrevious)) { $value = array_pop($__sessionPrevious); }
+if (isset($__sessionPrevious) && empty($__sessionPrevious)) { unset($__sessionPrevious); }
+endif;
+unset($__sessionArgs); ?>
 <!-- Slider Area Start -->
 <div class="slider-area">
     <div class="slider-active">
@@ -116,6 +126,18 @@ Home page
                             <div class="services-cap">
                                <h5><a href="<?php echo e(route('category.job-listing', $category->id)); ?>"><?php echo e($category->name); ?></a></h5>
                                 <span>(<?php echo e($category->jobPosts->count()); ?>)</span>
+                                <?php if(auth()->guard()->check()): ?>
+                                <?php if(auth()->user()->role == 'user'): ?>
+                                <form action="<?php echo e(route('category.subscribe', $category->id)); ?>" method="post">
+<?php echo csrf_field(); ?>
+<span><input type="submit" value="<?php echo e(auth()->user()->isSubscribeToCategory($category->id) ? 'Unsubscribe' : 'Subscribe'); ?>" class="text-primary text-decoration-none hover:text-success"></input></span>
+
+                                </form>
+                                
+
+                                
+                                <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -125,6 +147,7 @@ Home page
                     
                 </div>
                 <!-- More Btn -->
+             
                 <!-- Section Button -->
                 <div class="row">
                     <div class="col-lg-12">

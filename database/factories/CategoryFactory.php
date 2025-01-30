@@ -22,7 +22,7 @@ class CategoryFactory extends Factory
 
         return [
             'name' => fake()->word(),
-            'user_id' => Admin::first() ?? Admin::factory()->create(), 
+            'admin_id' => Admin::first() ?? Admin::factory()->create(), 
         ];
     }
 }

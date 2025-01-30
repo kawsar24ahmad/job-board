@@ -11,13 +11,16 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'admin_id',
         'name'
     ];
     public function jobPosts() {
         return $this->hasMany(JobPost::class);
     }
     public function admin() {
-        return $this->belongsTo(Admin::class, 'user_id');
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }
+    public function users()  {
+        return $this->belongsToMany(User::class, 'subscriptions')->withTimestamps();
     }
 }

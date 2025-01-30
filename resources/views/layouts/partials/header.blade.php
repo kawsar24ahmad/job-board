@@ -32,10 +32,35 @@
                                     </nav>
                                 </div>
                                 <!-- Header-btn -->
-                                <div class="header-btn d-none f-right d-lg-block">
-                                    <a href="{{route('register')}}" class="btn head-btn1">Register</a>
-                                    <a href="#" class="btn head-btn2">Login</a>
-                                </div>
+                                @guest
+    <div class="header-btn d-none d-lg-block f-right">
+        <a href="{{ route('register') }}" class="btn btn-primary head-btn1">Register</a>
+        <a href="{{ route('login') }}" class="btn btn-outline-primary head-btn2">Login</a>
+    </div>
+@endguest
+
+@auth
+@if (auth()->user()->role == 'user')
+
+@endif
+    <div class="header-btn d-none d-lg-block f-right">
+        <div class="dropdown d-inline">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ auth()->user()->name }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                    <form action="{{ route('user.logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-danger">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+@endauth
+
                             </div>
                         </div>
                         <!-- Mobile Menu -->

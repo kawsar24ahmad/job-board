@@ -6,6 +6,9 @@ Home page
 
 @section('content')
 
+@session('success')
+                  <p class="alert-success">{{ session('success')}}</p>
+                 @endsession
 <!-- Slider Area Start -->
 <div class="slider-area">
     <div class="slider-active">
@@ -115,6 +118,18 @@ Home page
                             <div class="services-cap">
                                <h5><a href="{{route('category.job-listing', $category->id)}}">{{$category->name}}</a></h5>
                                 <span>({{$category->jobPosts->count()}})</span>
+                                @auth
+                                @if (auth()->user()->role == 'user')
+                                <form action="{{route('category.subscribe', $category->id)}}" method="post">
+@csrf
+<span><input type="submit" value="{{auth()->user()->isSubscribeToCategory($category->id) ? 'Unsubscribe' : 'Subscribe'}}" class="text-primary text-decoration-none hover:text-success"></input></span>
+
+                                </form>
+                                
+
+                                
+                                @endif
+                                @endauth
                             </div>
                         </div>
                     </div>
@@ -124,6 +139,7 @@ Home page
                     
                 </div>
                 <!-- More Btn -->
+             
                 <!-- Section Button -->
                 <div class="row">
                     <div class="col-lg-12">

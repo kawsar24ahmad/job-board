@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -22,7 +23,37 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ]);
+
+        Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
        
         return redirect('/');
+    }
+
+    public function login()  {
+        return    view('user.login');
+    }
+    public function loginForm(Request $request)  {
+        $request->validate([
+            'email'=> 'required|email',
+            'password'=> 'required'
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return  redirect(route('home'));
+        }
+        
+    }
+    public function logout()  {
+         // Log out the admin
+         Auth::logout();
+
+        
+         // Redirect to the login page or any desired route
+         return redirect()->route('home')->with('success', 'You have successfully logged out.');
     }
 }

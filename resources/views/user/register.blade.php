@@ -57,7 +57,7 @@ Register Page
 
                         <div class="d-flex justify-content-end pt-3">
                      
-                        <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Submit form</button>
+                        <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Register</button>
                         </div>
                     </form>
 

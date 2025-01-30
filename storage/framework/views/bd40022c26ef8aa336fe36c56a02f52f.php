@@ -23,7 +23,9 @@
             <link rel="stylesheet" href="<?php echo e(asset('assets/css/slick.css')); ?>">
             <link rel="stylesheet" href="<?php echo e(asset('assets/css/nice-select.css')); ?>">
             <link rel="stylesheet" href="<?php echo e(asset('assets/css/style.css')); ?>">
-            
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
    </head>
 
    <body>
