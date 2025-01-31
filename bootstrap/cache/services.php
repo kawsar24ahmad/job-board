@@ -32,7 +32,8 @@
     28 => 'Termwind\\Laravel\\TermwindServiceProvider',
     29 => 'Pest\\Laravel\\PestServiceProvider',
     30 => 'Flasher\\Laravel\\FlasherServiceProvider',
-    31 => 'App\\Providers\\AppServiceProvider',
+    31 => 'Srmklive\\PayPal\\Providers\\PayPalServiceProvider',
+    32 => 'App\\Providers\\AppServiceProvider',
   ),
   'eager' => 
   array (
@@ -52,7 +53,8 @@
     13 => 'Termwind\\Laravel\\TermwindServiceProvider',
     14 => 'Pest\\Laravel\\PestServiceProvider',
     15 => 'Flasher\\Laravel\\FlasherServiceProvider',
-    16 => 'App\\Providers\\AppServiceProvider',
+    16 => 'Srmklive\\PayPal\\Providers\\PayPalServiceProvider',
+    17 => 'App\\Providers\\AppServiceProvider',
   ),
   'deferred' => 
   array (

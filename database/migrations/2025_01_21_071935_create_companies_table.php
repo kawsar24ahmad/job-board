@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('website_link');
             $table->string('address');
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
+            $table->string('plan_name')->default('free');
             $table->foreignId('approved_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->timestamps();
         });

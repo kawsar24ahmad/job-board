@@ -16,6 +16,7 @@ class AdminController extends Controller
         ]);
 
         $credentials = $request->only(['email', 'password']);
+        
         if (Auth::guard('admin')->attempt($credentials)) {
             flash()
             ->options([

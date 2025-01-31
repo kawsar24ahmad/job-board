@@ -38,11 +38,21 @@ class Company extends Authenticatable
         'contact_number',
         'website_link',
         'address',
-        'description'
+        'description',
+        'plan_name'
     ];
     public function approvedBy()
     {
         return $this->belongsTo(Admin::class, 'approved_by');
     }
+
+    public function isFreePlan()  {
+        return $this->plan_name = 'free';
+    }
+    public function isPremiumPlan()  {
+        return $this->plan_name = 'premium';
+    }
+
+    
 
 }

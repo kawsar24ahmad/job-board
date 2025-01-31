@@ -12,6 +12,9 @@ class CompanyController extends Controller
     public function register()  {
         return view('company.register');
     }
+    public function premiumRegister()  {
+        return view('company.premium-register');
+    }
     public function login()  {
         return view('company.login');
     }
@@ -32,7 +35,7 @@ class CompanyController extends Controller
         }
 
         // Check if the company's status is approved
-        if ($company->status !== 'approved') {
+        if ($company->status != 'approved') {
             return back()->with('error', 'This account is not approved.');
         }
 

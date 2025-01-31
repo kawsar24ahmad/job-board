@@ -12,7 +12,8 @@
                         <h3 class="mb-4 text-uppercase text-primary">Registration Form</h3>
                         <p class="text-muted mb-4">Choose how you want to register:</p>
                         <div class="d-grid gap-3">
-                            <a href="{{route('company.register')}}" class="btn btn-outline-primary btn-lg">Register as a Company</a>
+                            <a href="{{route('pricing-plan')}}" class="btn btn-outline-primary btn-lg">Register as a Company</a>
+                            <!-- <a href="{{route('company.register')}}" class="btn btn-outline-primary btn-lg">Register as a Company</a> -->
                             
                         </div>
                         <div class="d-grid gap-3 pt-3">
