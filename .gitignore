@@ -1,23 +1,30 @@
-/.phpunit.cache
+# Laravel & PHP
+/vendor
 /node_modules
 /public/build
 /public/hot
 /public/storage
 /storage/*.key
 /storage/pail
-/vendor
+/.phpunit.cache
+/.phpunit.result.cache
+.phpactor.json
+/phpunit.result.cache
 .env
 .env.backup
 .env.production
-.phpactor.json
-.phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
 /auth.json
+
+# IDE & Editor Folders
 /.fleet
 /.idea
 /.nova
 /.vscode
 /.zed
+
+# SQLite database
+/database.sqlite
