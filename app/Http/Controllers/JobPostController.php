@@ -16,8 +16,8 @@ class JobPostController extends Controller
     public function index()
     {
         $companyId = auth()->guard('company')->id();
-        $jobPosts=JobPost::where('company_id', $companyId )->paginate(2);
-        // dd($jobPosts);
+        $jobPosts=JobPost::where('company_id', $companyId )->get();
+       
 
         return view('company.job-posts.index', compact('jobPosts'));
     }
@@ -41,7 +41,12 @@ class JobPostController extends Controller
 
 
         if ($jobCount >= 3) {
-            return back()->with('error', 'You have already 3 active posts!');
+            flash()
+            ->options([
+                'position' => 'bottom-right',
+            ])
+            ->warning('You have already 3 active posts!');
+            return back();
         }
 
         $request->validate([
@@ -83,7 +88,11 @@ class JobPostController extends Controller
                 $user->notify(new NewJobPostNotification($jobPost));
             }
         }
-
+        flash()
+        ->options([
+            'position' => 'bottom-right',
+        ])
+        ->success('The Job post has been created');
         return to_route('job-posts.index');
     }
 
@@ -123,32 +132,63 @@ class JobPostController extends Controller
     {
         $jobPost = JobPost::findOrFail($id);
         $companyId = auth()->guard('company')->user()->id;
-        $jobPostCount = JobPost::where('company_id', $companyId)->where('status', 'active')->count();
 
-        // dd($jobPostCount);
+        $jobPostCount = JobPost::where('company_id', $companyId)
+            ->where('status', 'active')
+            ->where('id', '!=', $id) // Excluding the current post
+            ->count();
+
+
         if ($jobPostCount >= 3) {
-            return back()->with('error', 'You have already 3 active posts!');
+            flash()
+            ->options([
+                'position' => 'bottom-right',
+            ])
+            ->error('You have already 3 active posts!');
+            return back();
         }
+
         if ($jobPost->status == 'active' || $jobPost->status == 'expired') {
-            return back()->with('error', 'This is already active post!');
+            flash()
+            ->options([
+                'position' => 'bottom-right',
+            ])
+            ->error('This is already an active post!');
+            return back();
         }
+
         $jobPost->status = 'active';
         $jobPost->save();
 
-        return to_route('job-posts.index')->with('success', 'your post is activated');
+        flash()
+        ->options([
+            'position' => 'bottom-right',
+        ])
+        ->success('Your post is activated');
 
+        return to_route('job-posts.index');
     }
+
     public function deactivatePost(string $id)
     {
         $jobPost = JobPost::findOrFail($id);
     
         if ($jobPost->status == 'inactive' || $jobPost->status == 'expired') {
-            return back()->with('error', 'This is already inactive post!');
+            flash()
+            ->options([
+                'position' => 'bottom-right',
+            ])
+            ->info('This is already inactive post!');
+            return back();
         }
         $jobPost->status = 'inactive';
         $jobPost->save();
-
-        return to_route('job-posts.index')->with('success', 'your post is deactivated');
+        flash()
+        ->options([
+            'position' => 'bottom-right',
+        ])
+        ->info('your post is deactivated');
+        return to_route('job-posts.index');
 
     }
     public function search(Request $request)

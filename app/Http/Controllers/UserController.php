@@ -29,7 +29,7 @@ class UserController extends Controller
             'password' => $request->password,
         ]);
        
-        return redirect('/');
+        return redirect()->back()->with('success', 'You have registered successfully!');
     }
 
     public function login()  {
@@ -44,10 +44,17 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            flash()->success('You have logged in successfully.');
             return  redirect(route('home'));
         }
 
-        return back()->with('error', 'Your email or password is not valid!');
+        flash()
+        ->options([
+            'timeout' => 10000, // 3 seconds
+            'position' => 'top-right',
+        ])
+        ->error('Your email or password is wrong!');
+        return redirect()->back();
         
     }
     public function logout()  {

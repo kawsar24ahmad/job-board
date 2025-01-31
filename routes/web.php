@@ -12,6 +12,7 @@ use App\Models\JobPost;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
     $jobPosts = JobPost::where('status', 'active')->latest()->paginate(4);
     $categories = Category::all();
@@ -21,12 +22,6 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
 
 Route::get('/job-listing', function () {
     $jobPosts = JobPost::where('status', 'active')->paginate(2);
@@ -46,16 +41,33 @@ Route::get('/job-details/{id}', [JobPostController::class, 'show'])->name('job-d
 
 Route::get('/job-listing/search', [JobPostController::class, 'search'])->name('job-posts.search');
 
+Route::middleware('guest')->group(function ()  {
+
+    
+
 // User Routes 
 
-Route::get('/user/register', [UserController::class, 'create'])->name('user.register');
-Route::post('/user/register', [UserController::class, 'register'])->name('user.register');
-// for user login 
-Route::get('/user/login', [UserController::class, 'login'])->name('user.login');
-Route::post('/user/login', [UserController::class, 'loginForm'])->name('user.login');
-Route::post('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+    Route::get('/user/register', [UserController::class, 'create'])->name('user.register');
+    Route::post('/user/register', [UserController::class, 'register'])->name('user.register');
+    Route::get('/user/login', [UserController::class, 'login'])->name('user.login');
+    Route::post('/user/login', [UserController::class, 'loginForm'])->name('user.login');
+    Route::get('/register', function () {
+        return view('register');
+    })->name('register');
+    Route::get('/login', function () {
+        return view('login');
+    })->name('login');
+    
 
-Route::post('/category/{id}/subscribe', [SubscriptionController::class, 'subscribe'])->name('category.subscribe');
+});
+
+    // for user login 
+Route::middleware('auth:web')->group(function ()  {
+    Route::post('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+    Route::post('/category/{id}/subscribe', [SubscriptionController::class, 'subscribe'])->name('category.subscribe');
+});
+
+
 
 
 // Admin Panel Routes

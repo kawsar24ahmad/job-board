@@ -24,8 +24,14 @@ class CategoryController extends Controller
             'name' => $request->name,
             'admin_id' => auth()->guard('admin')->user()->id,
         ]);
+
+        flash()
+        ->options([
+            'position' => 'bottom-right',
+        ])
+        ->success('Category created successfully');
         
-        return redirect()->route('category.index')->with('success', 'Category created successfully.');
+        return redirect()->route('category.index');
     }
     public function delete($id)  
     {
@@ -35,13 +41,14 @@ class CategoryController extends Controller
             return redirect()->route('category.index')->with('error', 'Category not found.');
         }
     
-        // Check if category has related job posts
-        // if ($category->jobPosts()->count() > 0) {
-        //     return redirect()->route('category.index')->with('error', 'Cannot delete category with active job posts.');
-        // }
-    
         $category->delete();
-        return redirect()->route('category.index')->with('success', 'Category deleted successfully.');
+
+        flash()
+        ->options([
+            'position' => 'bottom-right',
+        ])
+        ->success('Category deleted successfully');
+        return redirect()->route('category.index');
     }
     
 }

@@ -17,9 +17,14 @@ class AdminController extends Controller
 
         $credentials = $request->only(['email', 'password']);
         if (Auth::guard('admin')->attempt($credentials)) {
+            flash()
+            ->options([
+                'position' => 'bottom-right',
+            ])
+            ->success('You have logged in successfully');
             return redirect(route('admin.dashboard'));
         }
-        // dd($request->all());
+        return redirect()->back()->with('error', 'Your email or password is wrong!');
     }
 
     public function logout(Request $request)  {
@@ -52,7 +57,12 @@ class AdminController extends Controller
         $company->status = 'approved';
         $company->approved_by = auth()->guard('admin')->user()->id;
         $company->save();
-        return back()->with('success', 'The Company has been approved');
+        flash()
+            ->options([
+                'position' => 'bottom-right',
+            ])
+            ->info('The Company has been approved');
+        return back();
         
     }
     public function reject($id)  {
@@ -63,7 +73,12 @@ class AdminController extends Controller
 
         $company->status = 'rejected';
         $company->save();
-        return back()->with('success', 'The Company has been rejected');
+        flash()
+            ->options([
+                'position' => 'bottom-right',
+            ])
+            ->info('The Company has been rejected');
+        return back();
         
     }
 }

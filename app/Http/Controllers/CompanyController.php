@@ -42,6 +42,11 @@ class CompanyController extends Controller
         // Attempt to authenticate the company
         if (Auth::guard('company')->attempt($credentials)) {
             // Redirect to the company dashboard on successful login
+            flash()
+            ->options([
+                'position' => 'bottom-right',
+            ])
+            ->success('You have logged in successfully');
             return redirect()->route('company.dashboard');
         }
 
@@ -78,6 +83,8 @@ class CompanyController extends Controller
         ]);
 
         Company::create($request->all());
+        
+        flash()->success('Your Company has been registered successfully');
 
         return to_route('company.login');
 
